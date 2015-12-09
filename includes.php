@@ -1,5 +1,5 @@
 <?
-//INCLUDES FILES
+//INCLUDES FILE (edited on web)
 function fetchdataonapi($url){
 		# init curl
 		$ch = curl_init();
