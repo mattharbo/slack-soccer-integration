@@ -22,6 +22,7 @@ echo "<b><u>Today's games</u></b> :<br>";
 foreach ($l1fix->fixtures as $l1game){
 
 	//Condition #2 => Game's hour + 1h55 (10' to be safe) is <= server hour
+	//Here is the condition
 
 	//Condition #1 => Date is <= Today's date	
 	if ($currentday == retrievedate($l1game->date)) {
@@ -79,5 +80,4 @@ foreach ($l1fix->fixtures as $l1game){
 // // We attached our JSON data using the CURLOPT_POSTFIELDS option.
 // // We set the content-type of our request to application/json. It is extremely important to note that you should always use “application/json”, not “text/json”. Simply put, using “text/json” is incorrect!
 // // Finally, we used the function curl_exec to execute our POST request. If you want to check for errors at this stage, then you should check out my article on error handling with cURL.
-
 ?>

@@ -76,6 +76,4 @@ $result = curl_exec($ch);
 // We attached our JSON data using the CURLOPT_POSTFIELDS option.
 // We set the content-type of our request to application/json. It is extremely important to note that you should always use “application/json”, not “text/json”. Simply put, using “text/json” is incorrect!
 // Finally, we used the function curl_exec to execute our POST request. If you want to check for errors at this stage, then you should check out my article on error handling with cURL.
-
-
 ?>
