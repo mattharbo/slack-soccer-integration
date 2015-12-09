@@ -47,5 +47,4 @@ function retrievehour($inputdate){
 	
 	return $hh.":".$mn;
 }
-
 ?>
