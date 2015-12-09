@@ -1,5 +1,4 @@
 <?
-//Check branch update
 function fetchdataonapi($url){
 		# init curl
 		$ch = curl_init();
@@ -24,7 +23,7 @@ function fetchdataonapi($url){
 }
 
 // Api.football-data.org format -> 2015-11-04T19:45:00Z
-// Becareful London Time !!
+// Everyhour should be based on Greenwich Time
 
 function retrievedate($inputdate){
 
