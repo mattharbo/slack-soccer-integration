@@ -23,7 +23,7 @@ function fetchdataonapi($url){
 }
 
 // Api.football-data.org format -> 2015-11-04T19:45:00Z
-// Everyhour should be based on Greenwich Time
+// Every hours managed on code should be based on Greenwich Time
 
 function retrievedate($inputdate){
 

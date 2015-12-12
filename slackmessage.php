@@ -1,5 +1,5 @@
 <?php
-
+//Test from terminal
 ###################### Sending data to Slack channel #####################
 
 //API Url
