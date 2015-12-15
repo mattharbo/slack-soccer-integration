@@ -1,10 +1,8 @@
 <?php
-//Test from terminal
 ###################### Sending data to Slack channel #####################
-
 //API Url
-$url='https://hooks.slack.com/services/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'; //championsleague
-//$url = 'https://hooks.slack.com/services/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'; //ligue1
+//$url='https://hooks.slack.com/services/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'; //championsleague
+$url = 'https://hooks.slack.com/services/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'; //ligue1
 //$url = 'https://hooks.slack.com/services/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'; //premierleague
 //$url = 'https://hooks.slack.com/services/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'; //primeradiv
  
@@ -29,7 +27,7 @@ $ch = curl_init($url);
 //Kroatia :flag-hr:
 //Cyprus :flag-cy:
 //Turkia :flag-tr:
-//Kazakstan :flag-kz:
+//Kazakstan :flag-kz://
 //Greece :flag-gr:
 
 
