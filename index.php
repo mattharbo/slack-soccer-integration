@@ -62,8 +62,8 @@ if ($concatgamelist != NULL) {
 
 	$jsonData = [
 	    'attachments' => [[
-	    	'fallback' => 'Check Day '.$gamelist[journey][1].' fixture(s)',
-	    	'pretext' => "@channel: ".$index." Upcoming games",
+	    	'fallback' => 'Check Day '.$gamelist[journey][1].' result(s)',
+	    	'pretext' => "@channel: ".$index." L1 Result(s)",
 	    	'title' => ':flag-fr: Ligue 1 • Day '.$gamelist[journey][1],
 	    	'text' => $concatgamelist,
 	    	"mrkdwn_in" => ["text", "pretext"],
