@@ -2,6 +2,11 @@
 header("Refresh:300");//check history every 5 minutes
 include './includes.php';
 
+#########Cron check########
+
+// $time = date(j.'\-'.m.'\-'.Y.'\-'.G.'\-'.i);
+// fopen($time.".txt", "w+");
+
 ###################### Fetching data from API #####################
 
 $ligue1fixtures="http://api.football-data.org/v1/soccerseasons/396/fixtures/";//Ligue1
@@ -12,17 +17,23 @@ $ligue1fixtures="http://api.football-data.org/v1/soccerseasons/396/fixtures/";//
 $l1fix = json_decode(fetchdataonapi($ligue1fixtures));
 
 $currentday=date('Y-m-d');
+echo "Today is : ".$currentday."<br>";
+
+$currentdayprep = str_replace('-', '/', $currentday);
+$yesterday = date('Y-m-d',strtotime($currentdayprep . "-1 days"));
+echo "Yesterday was : ".$yesterday."<br>";
+
 $currenttime=date('H:i');
 $index=0;
 $gamelist = array('gamefakeid' => array(),'journey' => array(),'hometeam' => array(), 'scorehome' =>  array(), 'awayteam' => array(), 'scoreaway' => array());
 
 //echo retrievehour("2015-11-04T19:45:00Z")."<br>";
-echo $currenttime."<br>";
+//echo $currenttime."<br>";
 
 foreach ($l1fix->fixtures as $l1game){
 
 	//Condition #1 => Date is <= Today's date	
-	if ($currentday == retrievedate($l1game->date)) {
+	if (retrievedate($l1game->date) == $currentday OR retrievedate($l1game->date) == $yesterday) {
 
 		//Condition #2 => Game's hour + 1h55 (10' to be safe) is <= server hour
 		//CONDITION TO BE IMPLEMENTED HERE once Cron will be operational
@@ -43,10 +54,10 @@ foreach ($l1fix->fixtures as $l1game){
 }// End for each • Response line of the API
 
 for ($i=1; $i <= $index ; $i++) { 
-	$concatgamelist = $concatgamelist.($gamelist[hometeam][$i]." *vs.* ".$gamelist[awayteam][$i]."\n");
+	$concatgamelist = $concatgamelist.($gamelist[hometeam][$i]." ".$gamelist[scorehome][$i]." - ".$gamelist[scoreaway][$i]." ".$gamelist[awayteam][$i]."\n");
 }
 
-//echo $concatgamelist;
+echo $concatgamelist;
 
 if ($concatgamelist != NULL) {
 	###################### Sending data to Slack channel #####################
@@ -62,8 +73,8 @@ if ($concatgamelist != NULL) {
 
 	$jsonData = [
 	    'attachments' => [[
-	    	'fallback' => 'Check Day '.$gamelist[journey][1].' result(s)',
-	    	'pretext' => "@channel: ".$index." L1 Result(s)",
+	    	'fallback' => 'Check Day '.$gamelist[journey][1].' latest result(s)',
+	    	'pretext' => "@channel: ".$index." result(s) available",
 	    	'title' => ':flag-fr: Ligue 1 • Day '.$gamelist[journey][1],
 	    	'text' => $concatgamelist,
 	    	"mrkdwn_in" => ["text", "pretext"],
