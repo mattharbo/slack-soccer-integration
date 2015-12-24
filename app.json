@@ -1,0 +1,6 @@
+{
+  "name": "Slack Soccer",
+  "description": "Provide latests soccer results in Slack",
+  "repository": "https://github.com/mattharbo/slack-soccer-integration.git",
+  "addons": []
+}

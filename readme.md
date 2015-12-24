@@ -1,0 +1,1 @@
+Web app to be notified from soccer's results
