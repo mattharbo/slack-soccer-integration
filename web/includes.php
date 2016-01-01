@@ -22,8 +22,29 @@ function fetchdataonapi($url){
 		return $output;
 }
 
+function fetchdatafromapi2($uri){
+    $reqPrefs['http']['method'] = 'GET';
+    $reqPrefs['http']['header'] = 'X-Auth-Token: b7fb6cd48401444cad8e84046ef0ced0';
+    $stream_context = stream_context_create($reqPrefs);
+    $response = file_get_contents($uri, false, $stream_context);
+    $fixtures = json_decode($response);
+
+    return $fixtures;
+}
+
+function objectToArray($d) {
+	if (is_object($d)) {
+		$d = get_object_vars($d);
+	}
+	
+	if (is_array($d)) {
+		return array_map(__FUNCTION__, $d);
+	}else {
+		return $d;
+	}
+}
+
 // Api.football-data.org format -> 2015-11-04T19:45:00Z
-// Every hours managed on code should be based on Greenwich Time
 
 function retrievedate($inputdate){
 

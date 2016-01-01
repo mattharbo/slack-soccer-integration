@@ -1,37 +1,37 @@
-English league<br>
+Spanish league<br>
 <?php
 include '../includes.php';
 
 ###################### Variables declarations #########################
 
-$url="http://api.football-data.org/v1/soccerseasons/398/fixtures/?timeFrame=p5";//PremierLeague
+$url="http://api.football-data.org/v1/soccerseasons/399/fixtures/?timeFrame=p4";//PrimeraDivision
 
-$slackhookurl = 'https://hooks.slack.com/services/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'; //premierleague
+$slackhookurl = 'https://hooks.slack.com/services/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'; //primeradiv
 
-$flag=":flag-gb:";
+$flag=":flag-es:";
 
-$teamsacronyms = array('Arsenal FC'=>'Arsenal',
-'Leicester City FC'=>'Leicester',
-'Tottenham Hotspur FC'=>'Tottenham',
-'Manchester City FC'=>'City',
-'Crystal Palace FC'=>'Crystal',
-'Manchester United FC'=>'Man. U',
-'West Ham United FC'=>'West Ham',
-'Watford FC'=>'Watford',
-'Stoke City FC'=>'Stoke',
-'Liverpool FC'=>'Liverpool',
-'Everton FC'=>'Everton',
-'Southampton FC'=>'Southampton',
-'West Bromwich Albion FC'=>'Albion',
-'Chelsea FC'=>'Chelsea',
-'Norwich City FC'=>'Norwich',
-'AFC Bournemouth'=>'Bournemouth',
-'Swansea City FC'=>'Swansea',
-'Newcastle United FC'=>'Newcastle',
-'Sunderland AFC'=>'Sunderland',
-'Aston Villa FC'=>'Aston Villa');
+$teamsacronyms = array('RC Deportivo La Coruna'=>'Depor',
+'Real Sociedad de Fútbol'=>'Real Sociedad',
+'RCD Espanyol'=>'Espanyol',
+'Getafe CF'=>'Getafe',
+'Club Atlético de Madrid'=>'Atletico',
+'UD Las Palmas'=>'Las Palmas',
+'Rayo Vallecano de Madrid'=>'Rayo',
+'Valencia CF'=>'Valencia',
+'Málaga CF'=>'Malaga',
+'Sevilla FC'=>'Sevilla',
+'Athletic Club'=>'Bilbao',
+'FC Barcelona'=>'Barcelona',
+'Sporting Gijón'=>'Gijon',
+'Real Madrid CF'=>'Real',
+'Levante UD'=>'Levante',
+'RC Celta de Vigo'=>'Celta',
+'Real Betis'=>'Real Betis',
+'Villarreal CF'=>'Villarreal',
+'Granada CF'=>'Grenada',
+'SD Eibar'=>'Eibar');
 
-$prefixbackupfile="gb_";
+$prefixbackupfile="es_";
 $backuptrigger = "false";
 $numberofupdates=0;
 
