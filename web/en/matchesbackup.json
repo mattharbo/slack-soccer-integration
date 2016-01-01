@@ -1,1 +1,1 @@
-{"games":{"gamefakeid":[],"journey":[],"hometeam":[],"scorehome":[],"awayteam":[],"scoreaway":[]},"gamefakeid":{"1":1},"journey":{"1":19},"hometeam":{"1":"Sunderland"},"scorehome":{"1":0},"awayteam":{"1":"Liverpool"},"scoreaway":{"1":1}}
+{"fixtures":[{"date":"2015-12-31T15:00:00Z","status":"ONGOING","matchday":17,"homeTeamName":"Villarreal CF","awayTeamName":"Valencia CF","result":{"goalsHomeTeam":null,"goalsAwayTeam":null}}]}

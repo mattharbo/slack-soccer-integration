@@ -46,25 +46,4 @@ function retrievehour($inputdate){
 	
 	return $hh.":".$mn;
 }
-
-function todaysjsonbackup($jsonfilename,$date,$status,$matchday,$homeTeamName,$awayTeamName,$goalsHomeTeam,$goalsAwayTeam){
-
-	$jsonfromapi = array('fixtures' =>
-		array(array('date'=>''.$date.'',
-				'status'=>''.$status.'',
-				'matchday'=>$matchday,
-				'homeTeamName'=>''.$homeTeamName.'',
-				'awayTeamName'=>''.$awayTeamName.'',
-				'result'=>array('goalsHomeTeam'=>$goalsHomeTeam,
-					'goalsAwayTeam'=>$goalsAwayTeam)
-			),//End of 1st curly bracket
-		),//End of 1st bracket
-	);//End of fixtures array
-
-	$fp = fopen('./en/'.$jsonfilename.'.json', 'w');
-	fwrite($fp, json_encode($jsonfromapi));
-	fclose($fp);
-
-	return;
-}
 ?>
