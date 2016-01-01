@@ -4,7 +4,7 @@ include '../includes.php';
 
 ###################### Variables declarations #########################
 
-$url="http://api.football-data.org/v1/soccerseasons/399/fixtures/?timeFrame=p4";//PrimeraDivision
+$url="http://api.football-data.org/v1/soccerseasons/399/fixtures/?timeFrame=p1";//PrimeraDivision
 
 $slackhookurl = 'https://hooks.slack.com/services/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'; //primeradiv
 
