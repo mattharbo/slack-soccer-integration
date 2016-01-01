@@ -2,18 +2,11 @@
 include '../includes.php';
 
 #########Cron check########
-
 // $time = date(j.'\-'.m.'\-'.Y.'\-'.G.'\-'.i);
 // fopen($time.".txt", "w+");
 
-###################### Fetching data from API #####################
-
-//$liguefixtures="http://api.football-data.org/v1/soccerseasons/396/fixtures/";//Ligue1
-//$liguefixtures="http://api.football-data.org/v1/soccerseasons/405/fixtures/";//ChampionsLeague
-$liguefixtures="http://api.football-data.org/v1/soccerseasons/398/fixtures/";//PremierLeague
-//$liguefixtures="http://api.football-data.org/v1/soccerseasons/399/fixtures/";//PrimeraDivision
-
-$fix = json_decode(fetchdataonapi($liguefixtures));
+#######################################################################
+###################### Variables declarations #########################
 
 $currentday=date('Y-m-d');
 echo "Today is : ".$currentday."<br>";
@@ -26,7 +19,13 @@ $currenttime=date('H:i');
 echo "Current time is : ".$currenttime."<br><br>";
 
 $index=0;
-$gamelist = array('gamefakeid' => array(),'journey' => array(),'hometeam' => array(), 'scorehome' =>  array(), 'awayteam' => array(), 'scoreaway' => array());
+$gamelist = array('games'=> array(
+	'gamefakeid' => array(),
+	'journey' => array(),
+	'hometeam' => array(),
+	'scorehome' =>  array(),
+	'awayteam' => array(),
+	'scoreaway' => array()));
 
 $teamsacronyms = array('Arsenal FC'=>'Arsenal',
 'Leicester City FC'=>'Leicester',
@@ -49,6 +48,16 @@ $teamsacronyms = array('Arsenal FC'=>'Arsenal',
 'Sunderland AFC'=>'Sunderland',
 'Aston Villa FC'=>'Aston Villa');
 
+#######################################################################
+###################### Fetching data from API #########################
+
+//$liguefixtures="http://api.football-data.org/v1/soccerseasons/396/fixtures/";//Ligue1
+//$liguefixtures="http://api.football-data.org/v1/soccerseasons/405/fixtures/";//ChampionsLeague
+$liguefixtures="http://api.football-data.org/v1/soccerseasons/398/fixtures/";//PremierLeague
+//$liguefixtures="http://api.football-data.org/v1/soccerseasons/399/fixtures/";//PrimeraDivision
+
+$fix = json_decode(fetchdataonapi($liguefixtures));
+
 foreach ($fix->fixtures as $game){
 
 	//Condition #1 => Date is <= Today's date	
@@ -56,6 +65,7 @@ foreach ($fix->fixtures as $game){
 
 		//Condition #2 => Status is finished
 		if ($game->status == "FINISHED") {
+
 			$index=$index+1;
 			$gamelist[gamefakeid][$index]=$index;
 			$gamelist[journey][$index]=$game->matchday;
@@ -65,8 +75,24 @@ foreach ($fix->fixtures as $game){
 			$gamelist[scoreaway][$index]=$game->result->goalsAwayTeam;
 		}
 	}
-
 }// End for each • Response line of the API
+
+//print_r($gamelist);
+#######################################################################
+###################### Fetching data from back up #####################
+
+$gamesinbackup = json_decode('./matchesbackup.json');
+
+echo $gamesinbackup[gamefakeid];
+
+
+#######################################################################
+
+//Save the new results backup
+$fp = fopen('./matchesbackup.json', 'w');
+fwrite($fp, json_encode($gamelist));
+fclose($fp);
+
 
 for ($i=1; $i <= $index ; $i++) { 
 	$concatgamelist = $concatgamelist.($gamelist[hometeam][$i]."  ".$gamelist[scorehome][$i]." - ".$gamelist[scoreaway][$i]."  ".$gamelist[awayteam][$i]."\n");
