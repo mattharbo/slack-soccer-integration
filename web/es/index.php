@@ -8,6 +8,8 @@ $maininfo="http://api.football-data.org/v1/soccerseasons/399";//PrimeraDivisionM
 
 $slackhookurl = 'https://hooks.slack.com/services/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'; //primeradiv
 
+$leaguename="Primera Division";
+
 $flag=":flag-es:";
 
 $teamsacronyms = array('RC Deportivo La Coruna'=>'Depor',
@@ -87,7 +89,7 @@ foreach ($arrayapireturn['fixtures'] as $gameretrieve) {
 					
 				echo "<b><font color='red'>A score have been updated!! :D</font></b><br>";
 				//Place the result into the Slack array
-				$concatgamelist = $concatgamelist.($gameretrieve['homeTeamName']."  ".$gameretrieve['result']['goalsHomeTeam']." - ".$gameretrieve['result']['goalsAwayTeam']."  ".$gameretrieve['awayTeamName']."\n");
+				$concatgamelist = $concatgamelist.($teamsacronyms[$gameretrieve['homeTeamName']]."  ".$gameretrieve['result']['goalsHomeTeam']." - ".$gameretrieve['result']['goalsAwayTeam']."  ".$teamsacronyms[$gameretrieve['awayTeamName']]."\n");
 				//Set the backup trigger to 'true'
 				$backuptrigger = "true";
 				//Compt number of updates
@@ -95,7 +97,6 @@ foreach ($arrayapireturn['fixtures'] as $gameretrieve) {
 
 			}else{
 				echo "Score unchanged<br>";
-				//Do nothing...
 			}
 		}
 	}
@@ -119,7 +120,7 @@ if ($backuptrigger == "true") {
 	    'attachments' => [[
 	    	'fallback' => 'Check '.$flag.' Day '.$gameretrieve['matchday'].' latest result(s)',
 	    	'pretext' => "@channel: ".$numberofupdates." result(s) available for ".$flag,
-	    	'title' => 'Primera Division • Day '.$gameretrieve['matchday'],
+	    	'title' => $leaguename.' • Day '.$gameretrieve['matchday'],
 	    	'text' => $concatgamelist,
 	    	"mrkdwn_in" => ["text", "pretext"],
 			//'color' => '#F35A00'	

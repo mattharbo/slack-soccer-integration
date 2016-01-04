@@ -1,39 +1,39 @@
-English league<br><br>
+French league<br><br>
 <?php
 include '../includes.php';
 
 ###################### Variables declarations #########################
 
-$maininfo="http://api.football-data.org/v1/soccerseasons/398";//PrimeraDivisionMainInfo
+$maininfo="http://api.football-data.org/v1/soccerseasons/396";//PrimeraDivisionMainInfo
 
-$slackhookurl = 'https://hooks.slack.com/services/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'; //premierleague
+$slackhookurl = 'https://hooks.slack.com/services/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'; //ligue1
 
-$leaguename="Premier League";
+$leaguename="Ligue 1";
 
-$flag=":flag-gb:";
+$flag=":flag-fr:";
 
-$teamsacronyms = array('Arsenal FC'=>'Arsenal',
-'Leicester City FC'=>'Leicester',
-'Tottenham Hotspur FC'=>'Tottenham',
-'Manchester City FC'=>'City',
-'Crystal Palace FC'=>'Crystal',
-'Manchester United FC'=>'Man. U',
-'West Ham United FC'=>'West Ham',
-'Watford FC'=>'Watford',
-'Stoke City FC'=>'Stoke',
-'Liverpool FC'=>'Liverpool',
-'Everton FC'=>'Everton',
-'Southampton FC'=>'Southampton',
-'West Bromwich Albion FC'=>'Albion',
-'Chelsea FC'=>'Chelsea',
-'Norwich City FC'=>'Norwich',
-'AFC Bournemouth'=>'Bournemouth',
-'Swansea City FC'=>'Swansea',
-'Newcastle United FC'=>'Newcastle',
-'Sunderland AFC'=>'Sunderland',
-'Aston Villa FC'=>'Aston Villa');
+$teamsacronyms = array('OSC Lille'=>'LOSC',
+'Paris Saint-Germain'=>'PSG',
+'ES Troyes AC'=>'ESTAC',
+'Gazélec Ajaccio'=>'Gaz',
+'Olympique de Marseille'=>'OM',
+'SM Caen'=>'Caen',
+'OGC Nice'=>'Nice',
+'AS Monaco FC'=>'Monaco',
+'FC Nantes'=>'Nantes',
+'EA Guingamp'=>'Guingamp',
+'Montpellier Hérault SC'=>'Montpellier',
+'Angers SCO'=>'Angers',
+'SC Bastia'=>'Bastia',
+'Stade Rennais FC'=>'Rennes',
+'FC Girondins de Bordeaux'=>'Bordeaux',
+'Stade de Reims'=>'Reims',
+'Toulouse FC'=>'Toulouse',
+'AS Saint-Étienne'=>'ASSE',
+'Olympique Lyonnais'=>'OL',
+'FC Lorient'=>'Lorient');
 
-$prefixbackupfile="gb_";
+$prefixbackupfile="fr_";
 $backuptrigger = "false";
 $numberofupdates=0;
 
@@ -53,7 +53,7 @@ echo "<b>Last API update : </b>".$arrayapireturnformaininfo['lastUpdated']."<br>
 #######################################################################
 ############## Fetching matches for given day from API ################
 
-$url="http://api.football-data.org/v1/soccerseasons/398/fixtures?matchday=".$matchday;//PrimeraDivision
+$url="http://api.football-data.org/v1/soccerseasons/396/fixtures?matchday=".$matchday;//PrimeraDivision
 
 echo $url."<br><br>";
 
