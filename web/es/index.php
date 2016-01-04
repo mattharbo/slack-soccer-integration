@@ -1,10 +1,10 @@
-Spanish league<br>
+Spanish league<br><br>
 <?php
 include '../includes.php';
 
 ###################### Variables declarations #########################
 
-$url="http://api.football-data.org/v1/soccerseasons/399/fixtures/?timeFrame=p1";//PrimeraDivision
+$maininfo="http://api.football-data.org/v1/soccerseasons/399";//PrimeraDivisionMainInfo
 
 $slackhookurl = 'https://hooks.slack.com/services/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'; //primeradiv
 
@@ -36,12 +36,29 @@ $backuptrigger = "false";
 $numberofupdates=0;
 
 #######################################################################
-###################### Fetching data from API #########################
+################ Fetching current match day from API ##################
 
-$objectapireturn = fetchdatafromapi2($url);
-$arrayapireturn = objectToArray($objectapireturn);
+$objectapireturnformaininfo = fetchdatafromapi2($maininfo);
+$arrayapireturnformaininfo = objectToArray($objectapireturnformaininfo);
+$fp = fopen('./'.$prefixbackupfile.'leaguemaininfo.json', 'w');
+fwrite($fp, json_encode($arrayapireturnformaininfo));
+fclose($fp);
 
-// print_r($arrayapireturn);
+$matchday=$arrayapireturnformaininfo['currentMatchday'];
+
+echo "<b>Last API update : </b>".$arrayapireturnformaininfo['lastUpdated']."<br>";
+
+#######################################################################
+############## Fetching matches for given day from API ################
+
+$url="http://api.football-data.org/v1/soccerseasons/399/fixtures?matchday=".$matchday;//PrimeraDivision
+
+echo $url."<br><br>";
+
+$objectapireturnforcurrentmatchday = fetchdatafromapi2($url);
+$arrayapireturn = objectToArray($objectapireturnforcurrentmatchday);
+
+//print_r($arrayapireturn)."<br><br>";
 
 #######################################################################
 ###################### Fetching data from back up #####################
@@ -62,27 +79,31 @@ foreach ($arrayapireturn['fixtures'] as $gameretrieve) {
 
 		//Main condition => Assuming that a single home team is playing once in 24 hours
 		if ($fixtureinbackup['homeTeamName'] == $gameretrieve['homeTeamName']) {
+
+			echo $fixtureinbackup['homeTeamName']." vs ".$fixtureinbackup['awayTeamName']." => ";
 				
 			//echo "<br>There is a home team name that matches ! Wouhou";
 			if ($fixtureinbackup['result']['goalsHomeTeam'] != $gameretrieve['result']['goalsHomeTeam'] or $fixtureinbackup['result']['goalsAwayTeam'] != $gameretrieve['result']['goalsAwayTeam']) {
 					
-				echo "A score have been updated!! :D<br>";
+				echo "<b><font color='red'>A score have been updated!! :D</font></b><br>";
 				//Place the result into the Slack array
-				$concatgamelist = $concatgamelist.($teamsacronyms[$gameretrieve['homeTeamName']]."  ".$gameretrieve['result']['goalsHomeTeam']." - ".$gameretrieve['result']['goalsAwayTeam']."  ".$teamsacronyms[$gameretrieve['awayTeamName']]."\n");
+				$concatgamelist = $concatgamelist.($gameretrieve['homeTeamName']."  ".$gameretrieve['result']['goalsHomeTeam']." - ".$gameretrieve['result']['goalsAwayTeam']."  ".$gameretrieve['awayTeamName']."\n");
 				//Set the backup trigger to 'true'
 				$backuptrigger = "true";
 				//Compt number of updates
 				$numberofupdates=$numberofupdates+1;
 
 			}else{
-				echo "This score is known buddy... Come back later ;)<br>";
+				echo "Score unchanged<br>";
 				//Do nothing...
 			}
 		}
 	}
 }
 
-echo $concatgamelist;
+if (!empty($concatgamelist)) {
+	echo "<br>Changes recap : ".$concatgamelist;
+}
 
 #######################################################################
 ###################### Posting massage to Slack #######################
